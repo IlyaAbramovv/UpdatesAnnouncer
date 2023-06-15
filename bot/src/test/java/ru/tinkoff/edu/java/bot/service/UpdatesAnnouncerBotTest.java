@@ -4,12 +4,13 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UpdatesAnnouncerBotTest {
 
-    private final UpdatesAnnouncerBot bot = new UpdatesAnnouncerBot("6002915986:AAGgvRhnTmFP5HeAI6VPp6wioTbREb37VKs");
+    private final UpdatesAnnouncerBot bot = new UpdatesAnnouncerBot("6002915986:AAGgvRhnTmFP5HeAI6VPp6wioTbREb37VKs", new ScrapperClient());
 
     @Test
     public void invalidCommandGiven() {

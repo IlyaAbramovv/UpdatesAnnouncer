@@ -49,6 +49,14 @@
                 <version>${org-jetbrains-annotations.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers-bom -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>1.18.1</version>
+                <type>pom</type>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>

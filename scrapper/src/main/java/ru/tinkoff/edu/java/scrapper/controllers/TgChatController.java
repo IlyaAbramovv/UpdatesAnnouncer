@@ -8,6 +8,7 @@ public class TgChatController {
 
     @PostMapping
     public void registerChat(@PathVariable("id") long id) {
+        System.out.println("registered");
     }
 
     @DeleteMapping

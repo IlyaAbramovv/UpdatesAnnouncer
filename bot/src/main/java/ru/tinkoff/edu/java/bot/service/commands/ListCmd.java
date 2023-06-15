@@ -28,7 +28,7 @@ public class ListCmd implements Command {
     @Override
     public SendMessage handle(Update update) {
         ListLinksResponse links = scrapperClient.getLinks(chatId);
-        if (links.size() == 0) {
+        if (links == null || links.size() == 0) {
             return new SendMessage(chatId, "No links are being tracked");
         } else return new SendMessage(chatId, links.toString());
 

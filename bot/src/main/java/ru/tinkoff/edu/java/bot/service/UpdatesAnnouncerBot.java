@@ -15,14 +15,15 @@ import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
 
 import java.util.List;
 
+
 @Component
 public class UpdatesAnnouncerBot implements Bot {
     private final TelegramBot bot;
     private final ScrapperClient scrapperClient;
 
-    UpdatesAnnouncerBot(@Value("${app.token}") String token) {
+    public UpdatesAnnouncerBot(@Value("${app.token}") String token, ScrapperClient scrapperClient) {
         bot = new TelegramBot(token);
-        this.scrapperClient = new ScrapperClient();
+        this.scrapperClient = scrapperClient;
     }
 
     @Override

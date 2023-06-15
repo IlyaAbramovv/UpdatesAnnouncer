@@ -22,6 +22,22 @@
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers-bom -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-bom</artifactId>
+            <version>1.18.1</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>1.18.1</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>

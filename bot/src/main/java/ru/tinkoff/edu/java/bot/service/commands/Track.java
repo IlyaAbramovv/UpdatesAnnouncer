@@ -27,7 +27,6 @@ public class Track implements Command {
     public SendMessage handle(Update update) {
         String[] split = update.message().text().split(" ");
 
-
         return new SendMessage(chatId, split.length > 1 ? "Tracking link: " + split[1] : "No links provided");
     }
 }

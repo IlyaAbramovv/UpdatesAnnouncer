@@ -16,4 +16,19 @@ public class WebClientConfig {
     public StackOverFlowClient stackOverFlowClient() {
         return new StackOverFlowClient();
     }
+
+//    @Bean
+//    public DataSource datasource() {
+//        return DataSourceBuilder.create()
+//                .driverClassName("org.postgresql.Driver")
+//                .url("jdbc:postgresql://localhost:5432/scrapper")
+//                .username("ilya")
+//                .password("123")
+//                .build();
+//    }
+//
+//    @Bean
+//    public JdbcTemplate jdbcTemplate() {
+//        return new JdbcTemplate(datasource());
+//    }
 }
