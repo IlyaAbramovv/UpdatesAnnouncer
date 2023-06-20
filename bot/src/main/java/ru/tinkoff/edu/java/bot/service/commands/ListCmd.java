@@ -30,7 +30,7 @@ public class ListCmd implements Command {
         ListLinksResponse links = scrapperClient.getLinks(chatId);
         if (links == null || links.size() == 0) {
             return new SendMessage(chatId, "No links are being tracked");
-        } else return new SendMessage(chatId, links.toString());
+        } else return new SendMessage(chatId, "Tracked links:\n" + links);
 
     }
 }

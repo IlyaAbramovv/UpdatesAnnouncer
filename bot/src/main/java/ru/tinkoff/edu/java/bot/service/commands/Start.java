@@ -34,7 +34,6 @@ public class Start implements Command {
                 new KeyboardButton("/track"),
                 new KeyboardButton("/untrack"));
 
-
         scrapperClient.registerChat(chatId);
         return new SendMessage(chatId, "Starting...").replyMarkup(keyboard);
     }

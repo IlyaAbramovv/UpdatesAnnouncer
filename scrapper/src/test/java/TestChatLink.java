@@ -8,6 +8,8 @@ import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatLinkService;
 import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatService;
 import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcLinkService;
 
+import java.time.OffsetDateTime;
+
 import static org.junit.Assert.assertTrue;
 
 public class TestChatLink extends IntegrationEnvironment {
@@ -23,11 +25,11 @@ public class TestChatLink extends IntegrationEnvironment {
     @Test
     public void addChatLink() {
         Chat chat = new Chat(1L);
-        Link link = new Link(1L, "l1");
-        jdbcChatService.add(chat);
+        Link link = new Link(1L, "l1", OffsetDateTime.now());
+        jdbcChatService.register(chat);
         linkTable.add(link);
 
-        link = linkTable.findAll().get(0);
+        link = linkTable.listAll().stream().toList().get(0);
 
         var chatLink = new ChatLink(1L, chat, link);
         chatLinkTable.add(chatLink);
@@ -41,15 +43,15 @@ public class TestChatLink extends IntegrationEnvironment {
     @Test
     public void delete() {
         Chat chat1 = new Chat(1L);
-        Link link1 = new Link(1L, "l1");
+        Link link1 = new Link(1L, "l1", OffsetDateTime.now());
         var chatLink1 = new ChatLink(1L, chat1, link1);
         Chat chat2 = new Chat(2L);
-        Link link2 = new Link(2L, "l2");
+        Link link2 = new Link(2L, "l2", OffsetDateTime.now());
         var chatLink2 = new ChatLink(2L, chat2, link2);
         linkTable.add(link1);
         linkTable.add(link2);
-        jdbcChatService.add(chat1);
-        jdbcChatService.add(chat2);
+        jdbcChatService.register(chat1);
+        jdbcChatService.register(chat2);
         chatLinkTable.add(chatLink1);
         chatLinkTable.add(chatLink2);
 
@@ -63,17 +65,17 @@ public class TestChatLink extends IntegrationEnvironment {
     @Test
     public void findAll() {
         Chat chat1 = new Chat(1L);
-        Link link1 = new Link(1L, "l1");
+        Link link1 = new Link(1L, "l1", OffsetDateTime.now());
         Chat chat2 = new Chat(2L);
-        Link link2 = new Link(2L, "l2");
+        Link link2 = new Link(2L, "l2", OffsetDateTime.now());
 
         linkTable.add(link1);
         linkTable.add(link2);
-        jdbcChatService.add(chat1);
-        jdbcChatService.add(chat2);
+        jdbcChatService.register(chat1);
+        jdbcChatService.register(chat2);
 
-        link1 = linkTable.findAll().get(0);
-        link2 = linkTable.findAll().get(1);
+        link1 = linkTable.listAll().stream().toList().get(0);
+        link2 = linkTable.listAll().stream().toList().get(1);
         var chatLink1 = new ChatLink(1L, chat1, link1);
         var chatLink2 = new ChatLink(2L, chat2, link2);
         chatLinkTable.add(chatLink1);

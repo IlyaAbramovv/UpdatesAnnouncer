@@ -38,7 +38,7 @@ public class UpdatesAnnouncerBot implements Bot {
                 String messageText = message.text().split(" ")[0];
 
                 SendMessage sendMessage = getSendMessage(update, message, messageText);
-                SendResponse response = bot.execute(sendMessage);
+                SendResponse response = sendMessage(sendMessage);
                 System.out.println(response.isOk());
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
@@ -47,6 +47,10 @@ public class UpdatesAnnouncerBot implements Bot {
 
         }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
+    }
+
+    public SendResponse sendMessage(SendMessage sendMessage) {
+        return bot.execute(sendMessage);
     }
 
     SendMessage getSendMessage(Update update, Message message, String messageText) {

@@ -6,9 +6,14 @@ import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
 import ru.tinkoff.edu.java.scrapper.database.dto.ChatLink;
 import ru.tinkoff.edu.java.scrapper.database.dto.Link;
-import ru.tinkoff.edu.java.scrapper.service.ChatLinkService;
+import ru.tinkoff.edu.java.scrapper.database.service.ChatLinkService;
+import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
+import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 
+import java.net.URI;
 import java.sql.Types;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Repository
@@ -36,7 +41,8 @@ public class JdbcChatLinkService implements ChatLinkService {
             Link link = jdbcTemplate.query("SELECT * FROM link WHERE link_id =?", new Object[]{rs.getLong("link_id")}, new int[]{Types.INTEGER},
                     (rs1, rn1) -> new Link(
                             rs1.getLong("link_id"),
-                            rs1.getString("url")
+                            rs1.getString("url"),
+                            OffsetDateTime.ofInstant(rs1.getTimestamp("updated_at").toInstant(), ZoneId.of("UTC"))
                     )).stream().findAny().orElse(null);
             return new ChatLink(
                     rs.getLong("chat_link_id"),
@@ -46,4 +52,19 @@ public class JdbcChatLinkService implements ChatLinkService {
         });
     }
 
+    @Override
+    public ListLinksResponse findAllByLinkId(long id) {
+        List<LinkResponse> list = jdbcTemplate.query("select * from chat_link inner join link on chat_link.link_id = link.link_id and link.link_id = ?",
+                new Object[]{id}, new int[]{Types.INTEGER},
+                (rs, rn) -> new LinkResponse(rs.getLong("link_id"), URI.create(rs.getString("url")))).stream().toList();
+        return new ListLinksResponse(list, list.size());
+    }
+
+    @Override
+    public ListLinksResponse findAllByChatId(long id) {
+        List<LinkResponse> list = jdbcTemplate.query("select * from chat_link inner join link on chat_link.link_id = link.link_id and chat_link.chat_id = ?",
+                new Object[]{id}, new int[]{Types.INTEGER},
+                (rs, rn) -> new LinkResponse(rs.getLong("link_id"), URI.create(rs.getString("url")))).stream().toList();
+        return new ListLinksResponse(list, list.size());
+    }
 }

@@ -1,8 +1,8 @@
 create table link
 (
-    link_id serial primary key,
-    url     text
-
+    link_id    serial primary key,
+    url        text,
+    updated_at timestamp
 );
 
 create table chat

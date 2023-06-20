@@ -32,13 +32,11 @@ public class ScrapperClient {
     }
 
     public LinkResponse addLink(long id, AddLinkRequest request) {
-        return webClient.post().uri("/links").header("Tg-Chat-Id", String.valueOf(id))
-                .bodyValue(request).retrieve().bodyToMono(LinkResponse.class).block();
+        return webClient.post().uri("/links?Tg-Chat-Id={id}", id).bodyValue(request).retrieve().bodyToMono(LinkResponse.class).block();
     }
 
     public LinkResponse deleteLink(long id, RemoveLinkRequest request) {
-        return webClient.method(HttpMethod.DELETE).uri("/links").header("Tg-Chat-Id", String.valueOf(id))
-                .bodyValue(request).retrieve().bodyToMono(LinkResponse.class).block();
+        return webClient.method(HttpMethod.DELETE).uri("/links?Tg-Chat-Id={id}", id).bodyValue(request).retrieve().bodyToMono(LinkResponse.class).block();
     }
 
 }

@@ -18,7 +18,7 @@ public class TestChat extends IntegrationEnvironment {
     public void addChat() {
         Chat chat = new Chat(2L);
 
-        jdbcChatService.add(chat);
+        jdbcChatService.register(chat);
         var res = jdbcChatService.findAll();
 
         assertTrue(res.stream().anyMatch(c -> c.equals(chat)));
@@ -28,10 +28,10 @@ public class TestChat extends IntegrationEnvironment {
     public void delete() {
         Chat chat1 = new Chat(2L);
         Chat chat2 = new Chat(3L);
-        jdbcChatService.add(chat1);
-        jdbcChatService.add(chat2);
+        jdbcChatService.register(chat1);
+        jdbcChatService.register(chat2);
 
-        jdbcChatService.remove(chat1);
+        jdbcChatService.unregister(chat1);
         var res = jdbcChatService.findAll();
 
         System.out.println(res);
@@ -46,9 +46,9 @@ public class TestChat extends IntegrationEnvironment {
         Chat chat1 = new Chat(2L);
         Chat chat2 = new Chat(3L);
         Chat chat3 = new Chat(4L);
-        jdbcChatService.add(chat1);
-        jdbcChatService.add(chat2);
-        jdbcChatService.add(chat3);
+        jdbcChatService.register(chat1);
+        jdbcChatService.register(chat2);
+        jdbcChatService.register(chat3);
 
         var res = jdbcChatService.findAll();
 

@@ -2,7 +2,11 @@ package ru.tinkoff.edu.java.bot.service.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import lombok.val;
 import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
+import ru.tinkoff.edu.java.scrapper.dto.AddLinkRequest;
+
+import java.net.URI;
 
 public class Track implements Command {
     private final long chatId;
@@ -27,6 +31,16 @@ public class Track implements Command {
     public SendMessage handle(Update update) {
         String[] split = update.message().text().split(" ");
 
-        return new SendMessage(chatId, split.length > 1 ? "Tracking link: " + split[1] : "No links provided");
+        if (split.length > 1) {
+            String link = split[1];
+
+            val tracked = scrapperClient.getLinks(chatId);
+            if (tracked.contains(URI.create(link))) {
+                return new SendMessage(chatId, "Provided link is already being tracked");
+            }
+            scrapperClient.addLink(chatId, new AddLinkRequest(URI.create(link)));
+            return new SendMessage(chatId, "Tracking link: " + link);
+        }
+        return new SendMessage(chatId, "No links provided");
     }
 }
