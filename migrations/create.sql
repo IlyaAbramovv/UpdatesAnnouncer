@@ -15,7 +15,7 @@ create table chat_link
     chat_link_id serial primary key,
     chat_id      int,
     link_id      int,
-    foreign key (chat_id) references chat (chat_id),
-    foreign key (link_id) references link (link_id)
+    foreign key (chat_id) references chat (chat_id) on delete cascade,
+    foreign key (link_id) references link (link_id) on delete cascade
 );
 

@@ -16,7 +16,7 @@ public class DBTest extends IntegrationEnvironment {
             Connection connection = POSTGRE_SQL_CONTAINER.createConnection("");
             PreparedStatement statement = connection.prepareStatement("select * from link");
             var resultSet = statement.executeQuery();
-            Set<String> linkFields = Set.of("link_id", "url");
+            Set<String> linkFields = Set.of("link_id", "url", "updated_at");
             assertEquals(resultSet.getMetaData().getColumnCount(), linkFields.size());
             for (int i = 1; i <= linkFields.size(); i++) {
                 assertTrue(linkFields.contains(resultSet.getMetaData().getColumnName(i)));

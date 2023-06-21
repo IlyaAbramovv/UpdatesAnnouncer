@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.database.jdbc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +13,8 @@ import java.util.List;
 
 @Repository
 public class JdbcChatService implements TgChatService {
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public JdbcChatService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -34,10 +32,12 @@ public class JdbcChatService implements TgChatService {
                 (rs, rn) -> rs.getLong("link_id"));
 
         String inSql = String.join(",", Collections.nCopies(ids.size(), "?"));
-        String linksQ = String.format("delete from link where link_id in (%s)", inSql);
-        jdbcTemplate.update("DELETE FROM chat_link WHERE chat_id =?", chat.id());
+        if (ids.size() > 0) {
+            String linksQ = String.format("delete from link where link_id in (%s)", inSql);
+            jdbcTemplate.update(linksQ, ids.toArray());
+        }
+//        jdbcTemplate.update("DELETE FROM chat_link WHERE chat_id =?", chat.id());
         jdbcTemplate.update("DELETE FROM chat WHERE chat_id =?", chat.id());
-        jdbcTemplate.update(linksQ, ids.toArray());
         return chat;
     }
 

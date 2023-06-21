@@ -37,16 +37,26 @@ public class JdbcLinkService implements LinkService {
         List<Long> ids = jdbcTemplate.query("select * from link inner join chat_link on link.link_id = chat_link.link_id and chat_id = ? and link.url = ?", new Object[]{link.id(), link.url()}, new int[]{Types.INTEGER, Types.VARCHAR}, (rs, rn) -> rs.getLong("link_id"));
 
         String inSql = String.join(",", Collections.nCopies(ids.size(), "?"));
-        String q1 = String.format("DELETE FROM chat_link WHERE link_id in (%s)", inSql);
+//        String q1 = String.format("DELETE FROM chat_link WHERE link_id in (%s)", inSql);
+//        jdbcTemplate.update(q1, ids.toArray());
         String q2 = String.format("DELETE FROM link WHERE link_id in (%s)", inSql);
-        jdbcTemplate.update(q1, ids.toArray());
         jdbcTemplate.update(q2, ids.toArray());
         return link;
     }
 
     @Override
     public List<Link> listAll() {
-        return jdbcTemplate.query("SELECT * FROM link", (rs, rowNum) -> new Link(rs.getLong("link_id"), rs.getString("url"), OffsetDateTime.ofInstant(rs.getTimestamp("updated_at").toLocalDateTime().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())));
+        return jdbcTemplate.query(
+                "SELECT * FROM link",
+                (rs, rowNum) ->
+                        new Link(
+                                rs.getLong("link_id"),
+                                rs.getString("url"),
+                                OffsetDateTime.ofInstant(
+                                        rs.getTimestamp("updated_at")
+                                                .toLocalDateTime()
+                                                .toInstant(ZoneOffset.UTC),
+                                        TimeZone.getDefault().toZoneId())));
     }
 
     @Override
