@@ -4,7 +4,7 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 import ru.tinkoff.edu.java.scrapper.database.dto.Link;
 import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcLinkService;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -19,7 +19,7 @@ public class TestLink extends IntegrationEnvironment {
 
     @Test
     public void addLink() {
-        Link link = new Link(1L, "testUrl", OffsetDateTime.now());
+        Link link = new Link(1L, "testUrl", Instant.now());
 
         linkTable.add(link);
         var res = linkTable.listAll();
@@ -29,8 +29,8 @@ public class TestLink extends IntegrationEnvironment {
 
     @Test
     public void delete() {
-        Link link1 = new Link(1L, "l1", OffsetDateTime.now());
-        Link link2 = new Link(2L, "l2", OffsetDateTime.now());
+        Link link1 = new Link(1L, "l1", Instant.now());
+        Link link2 = new Link(2L, "l2", Instant.now());
         linkTable.add(link1);
         linkTable.add(link2);
 
@@ -43,9 +43,9 @@ public class TestLink extends IntegrationEnvironment {
 
     @Test
     public void findAll() {
-        Link link1 = new Link(1L, "l1", OffsetDateTime.now());
-        Link link2 = new Link(2L, "l2", OffsetDateTime.now());
-        Link link3 = new Link(3L, "l3", OffsetDateTime.now());
+        Link link1 = new Link(1L, "l1", Instant.now());
+        Link link2 = new Link(2L, "l2", Instant.now());
+        Link link3 = new Link(3L, "l3", Instant.now());
         linkTable.add(link1);
         linkTable.add(link2);
         linkTable.add(link3);

@@ -12,8 +12,6 @@ import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 
 import java.net.URI;
 import java.sql.Types;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 @Repository
@@ -42,7 +40,7 @@ public class JdbcChatLinkService implements ChatLinkService {
                     (rs1, rn1) -> new Link(
                             rs1.getLong("link_id"),
                             rs1.getString("url"),
-                            OffsetDateTime.ofInstant(rs1.getTimestamp("updated_at").toInstant(), ZoneId.of("UTC"))
+                            rs1.getTimestamp("updated_at").toInstant()
                     )).stream().findAny().orElse(null);
             return new ChatLink(
                     rs.getLong("chat_link_id"),
@@ -66,5 +64,12 @@ public class JdbcChatLinkService implements ChatLinkService {
                 new Object[]{id}, new int[]{Types.INTEGER},
                 (rs, rn) -> new LinkResponse(rs.getLong("link_id"), URI.create(rs.getString("url")))).stream().toList();
         return new ListLinksResponse(list, list.size());
+    }
+
+    @Override
+    public LinkResponse findLinkByChatIdAndUrl(Chat chat, String url) {
+        return jdbcTemplate.query("select link.link_id from link inner join chat_link cl on link.link_id = cl.link_id where chat_id = ? and url = ?",
+                new Object[]{chat.id(), url}, new int[]{Types.INTEGER, Types.VARCHAR},
+                (rs, rn) -> new LinkResponse(rs.getLong("link_id"), URI.create(url))).stream().findAny().orElse(null);
     }
 }

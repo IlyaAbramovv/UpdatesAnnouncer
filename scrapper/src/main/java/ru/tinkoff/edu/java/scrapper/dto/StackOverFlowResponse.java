@@ -1,9 +1,9 @@
 package ru.tinkoff.edu.java.scrapper.dto;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 public record StackOverFlowResponse(
         String id,
-        OffsetDateTime dateTime
+        Instant dateTime
 ) {
 }

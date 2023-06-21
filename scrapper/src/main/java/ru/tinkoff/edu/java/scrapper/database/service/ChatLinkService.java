@@ -1,6 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.database.service;
 
+import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
 import ru.tinkoff.edu.java.scrapper.database.dto.ChatLink;
+import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 
 import java.util.List;
@@ -15,4 +17,6 @@ public interface ChatLinkService {
     ListLinksResponse findAllByLinkId(long id);
 
     ListLinksResponse findAllByChatId(long id);
+
+    LinkResponse findLinkByChatIdAndUrl(Chat chat, String url);
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.GitHubResponse;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 public class GitHubClient {
     private final WebClient webClient;
@@ -21,7 +21,7 @@ public class GitHubClient {
         try {
             return new GitHubResponse(
                     userName, repoName,
-                    OffsetDateTime.parse(new JSONObject(getRepo(userName, repoName)).getString("pushed_at"))
+                    Instant.parse(new JSONObject(getRepo(userName, repoName)).getString("pushed_at"))
             );
         } catch (JSONException e) {
             return null;

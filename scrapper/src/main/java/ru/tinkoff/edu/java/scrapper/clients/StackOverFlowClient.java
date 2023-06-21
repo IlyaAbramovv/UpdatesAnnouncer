@@ -5,7 +5,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.StackOverFlowResponse;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 public class StackOverFlowClient {
     final WebClient webClient;
@@ -22,7 +22,7 @@ public class StackOverFlowClient {
         try {
             return new StackOverFlowResponse(
                     id,
-                    OffsetDateTime.parse(new JSONObject(getQuestionInfo(id)).getString("last_activity_date")));
+                    Instant.parse(new JSONObject(getQuestionInfo(id)).getString("last_activity_date")));
         } catch (JSONException e) {
             return null;
         }

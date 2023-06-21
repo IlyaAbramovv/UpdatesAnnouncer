@@ -12,8 +12,11 @@ import ru.tinkoff.edu.java.scrapper.database.dto.Link;
 import ru.tinkoff.edu.java.scrapper.database.dto.LinkUpdate;
 import ru.tinkoff.edu.java.scrapper.database.service.ChatLinkService;
 import ru.tinkoff.edu.java.scrapper.database.service.LinkService;
+import ru.tinkoff.edu.java.scrapper.dto.GitHubResponse;
+import ru.tinkoff.edu.java.scrapper.dto.StackOverFlowResponse;
 
 import java.net.URI;
+import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -41,24 +44,23 @@ public class LinkUpdaterScheduler {
             var ghRes = gitHubLinkParser.parse(link.url());
             var sofRes = sofLinkParser.parse(link.url());
             if (ghRes != null) {
-                var response = gitHubClient.fetchRepository(ghRes.result.get(0), ghRes.result.get(1));
-                if (response.dateTime().isAfter(link.lastUpdate())) {
-                    List<Long> ids = chatLinkService.findAll().stream().filter(cl -> cl.link().id().equals(link.id())).map(cl -> cl.chat().id()).toList();
-                    LinkUpdate linkUpdate = new LinkUpdate(link.id(), URI.create(link.url()), "", ids, response.dateTime());
-                    linkService.update(linkUpdate);
-                    botClient.update(linkUpdate);
-                }
+                GitHubResponse response = gitHubClient.fetchRepository(ghRes.result.get(0), ghRes.result.get(1));
+                handleResponse(link, response.dateTime());
 
             } else if (sofRes != null) {
-                var response = stackOverFlowClient.fetchQuestion(sofRes.result.get(0));
-                if (response.dateTime().isAfter(link.lastUpdate())) {
-                    List<Long> ids = chatLinkService.findAll().stream().filter(cl -> cl.link().id().equals(link.id())).map(cl -> cl.chat().id()).toList();
-                    LinkUpdate linkUpdate = new LinkUpdate(link.id(), URI.create(link.url()), "", ids, response.dateTime());
-                    linkService.update(linkUpdate);
-                    botClient.update(linkUpdate);
-                }
+                StackOverFlowResponse response = stackOverFlowClient.fetchQuestion(sofRes.result.get(0));
+                handleResponse(link, response.dateTime());
 
             }
+        }
+    }
+
+    private void handleResponse(Link link, Instant instant) {
+        if (instant.isAfter(link.lastUpdate())) {
+            List<Long> ids = chatLinkService.findAll().stream().filter(cl -> cl.link().id().equals(link.id())).map(cl -> cl.chat().id()).toList();
+            LinkUpdate linkUpdate = new LinkUpdate(link.id(), URI.create(link.url()), "", ids, instant);
+            linkService.update(linkUpdate);
+            botClient.update(linkUpdate);
         }
     }
 

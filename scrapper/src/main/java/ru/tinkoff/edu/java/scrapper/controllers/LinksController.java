@@ -11,9 +11,7 @@ import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.dto.RemoveLinkRequest;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/links")
@@ -33,7 +31,7 @@ public class LinksController {
 
     @PostMapping
     public LinkResponse addLinks(@RequestParam("Tg-Chat-Id") long tgChatId, @RequestBody AddLinkRequest addLinkRequest) {
-        Link link = new Link(tgChatId, addLinkRequest.link().toString(), OffsetDateTime.of(LocalDateTime.of(2000, 1, 1, 1, 1), ZoneOffset.ofHours(0)));
+        Link link = new Link(tgChatId, addLinkRequest.link().toString(), Instant.now());
         Link added = linkService.add(link);
         chatLinkService.add(new ChatLink(
                 tgChatId,
@@ -45,8 +43,9 @@ public class LinksController {
 
     @DeleteMapping
     public LinkResponse delete(@RequestParam("Tg-Chat-Id") long tgChatId, @RequestBody RemoveLinkRequest removeLinkRequest) {
-        Link link = new Link(tgChatId, removeLinkRequest.link().toString(), OffsetDateTime.now());
-        chatLinkService.remove(new ChatLink(tgChatId, new Chat(tgChatId), link));
+        long id = chatLinkService.findLinkByChatIdAndUrl(new Chat(tgChatId), removeLinkRequest.link().toString()).id();
+        Link link = new Link(id, removeLinkRequest.link().toString(), Instant.now());
+//        chatLinkService.remove(new ChatLink(tgChatId, new Chat(tgChatId), link));
         linkService.remove(link);
         return new LinkResponse(tgChatId, removeLinkRequest.link());
     }
