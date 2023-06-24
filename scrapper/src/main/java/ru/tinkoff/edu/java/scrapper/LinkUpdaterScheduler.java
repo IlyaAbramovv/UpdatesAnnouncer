@@ -27,7 +27,11 @@ public class LinkUpdaterScheduler {
     private final GitHubClient gitHubClient;
     private final StackOverFlowClient stackOverFlowClient;
 
-    public LinkUpdaterScheduler(BotClient botClient, LinkService linkService, ChatLinkService chatLinkService, GitHubClient gitHubClient, StackOverFlowClient stackOverFlowClient) {
+    public LinkUpdaterScheduler(BotClient botClient,
+                                LinkService linkService,
+                                ChatLinkService chatLinkService,
+                                GitHubClient gitHubClient,
+                                StackOverFlowClient stackOverFlowClient) {
         this.botClient = botClient;
         this.linkService = linkService;
         this.chatLinkService = chatLinkService;
@@ -57,7 +61,7 @@ public class LinkUpdaterScheduler {
 
     private void handleResponse(Link link, Instant instant) {
         if (instant.isAfter(link.lastUpdate())) {
-            List<Long> ids = chatLinkService.findAll().stream().filter(cl -> cl.link().id().equals(link.id())).map(cl -> cl.chat().id()).toList();
+            List<Long> ids = chatLinkService.findAll().stream().filter(cl -> cl.link().id() == link.id()).map(cl -> cl.chat().id()).toList();
             LinkUpdate linkUpdate = new LinkUpdate(link.id(), URI.create(link.url()), "", ids, instant);
             linkService.update(linkUpdate);
             botClient.update(linkUpdate);

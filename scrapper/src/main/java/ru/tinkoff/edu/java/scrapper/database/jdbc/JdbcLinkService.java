@@ -1,8 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.database.jdbc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.database.dto.Link;
 import ru.tinkoff.edu.java.scrapper.database.dto.LinkUpdate;
@@ -11,11 +9,10 @@ import ru.tinkoff.edu.java.scrapper.database.service.LinkService;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Repository
+//@Repository
 public class JdbcLinkService implements LinkService {
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public JdbcLinkService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -53,9 +50,4 @@ public class JdbcLinkService implements LinkService {
     public void update(LinkUpdate linkUpdate) {
         jdbcTemplate.update("update link set updated_at = ? where link_id = ?", Timestamp.from(linkUpdate.lastUpdate()), linkUpdate.id());
     }
-
-    public void removeAll() {
-        jdbcTemplate.update("TRUNCATE TABLE link");
-    }
-
 }

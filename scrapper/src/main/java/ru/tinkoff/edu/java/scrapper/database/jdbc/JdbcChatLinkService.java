@@ -1,8 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.database.jdbc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
 import ru.tinkoff.edu.java.scrapper.database.dto.ChatLink;
 import ru.tinkoff.edu.java.scrapper.database.dto.Link;
@@ -14,11 +12,10 @@ import java.net.URI;
 import java.sql.Types;
 import java.util.List;
 
-@Repository
+//@Repository
 public class JdbcChatLinkService implements ChatLinkService {
     public JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public JdbcChatLinkService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

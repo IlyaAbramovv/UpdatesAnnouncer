@@ -1,7 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.database.dto;
 
 public record ChatLink(
-        Long id,
+        long id,
         Chat chat,
         Link link
 ) {
