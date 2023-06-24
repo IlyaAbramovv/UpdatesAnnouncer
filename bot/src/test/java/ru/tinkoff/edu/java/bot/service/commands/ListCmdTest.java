@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
-import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
+import ru.tinkoff.edu.java.bot.dto.ListLinksResponse;
 
 import java.util.List;
 
