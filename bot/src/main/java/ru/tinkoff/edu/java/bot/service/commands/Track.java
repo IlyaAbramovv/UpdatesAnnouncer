@@ -3,8 +3,8 @@ package ru.tinkoff.edu.java.bot.service.commands;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.val;
-import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
-import ru.tinkoff.edu.java.scrapper.dto.AddLinkRequest;
+import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
+import ru.tinkoff.edu.java.bot.dto.AddLinkRequest;
 
 import java.net.URI;
 

@@ -2,8 +2,9 @@ package ru.tinkoff.edu.java.bot.service.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
-import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
+import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
+import ru.tinkoff.edu.java.bot.dto.ListLinksResponse;
+
 
 public class ListCmd implements Command {
     private final long chatId;

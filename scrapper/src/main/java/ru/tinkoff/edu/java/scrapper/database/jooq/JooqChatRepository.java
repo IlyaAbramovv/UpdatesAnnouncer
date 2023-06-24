@@ -2,8 +2,8 @@ package ru.tinkoff.edu.java.scrapper.database.jooq;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
-import ru.tinkoff.edu.java.scrapper.database.service.TgChatService;
+import ru.tinkoff.edu.java.scrapper.database.ChatRepository;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.Tables.*;
 
 @Repository
-public class JooqChatService implements TgChatService {
+public class JooqChatRepository implements ChatRepository {
     private final DSLContext dslContext;
 
-    public JooqChatService(DSLContext dslContext) {
+    public JooqChatRepository(DSLContext dslContext) {
         this.dslContext = dslContext;
     }
 

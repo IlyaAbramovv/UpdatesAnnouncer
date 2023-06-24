@@ -1,8 +1,8 @@
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.test.jdbc.JdbcTestUtils;
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
-import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcLinkService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
+import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcLinkRepository;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 public class TestLink extends IntegrationEnvironment {
-    JdbcLinkService linkTable = new JdbcLinkService(jdbcTemplate);
+    JdbcLinkRepository linkTable = new JdbcLinkRepository(jdbcTemplate);
 
     @After
     public void tearDown() {

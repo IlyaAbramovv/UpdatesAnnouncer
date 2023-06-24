@@ -1,10 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.database.jdbc;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
+import org.springframework.stereotype.Repository;
+import ru.tinkoff.edu.java.scrapper.database.ChatLinkRepository;
 import ru.tinkoff.edu.java.scrapper.database.dto.ChatLink;
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
-import ru.tinkoff.edu.java.scrapper.database.service.ChatLinkService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
 import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 
@@ -12,11 +13,11 @@ import java.net.URI;
 import java.sql.Types;
 import java.util.List;
 
-//@Repository
-public class JdbcChatLinkService implements ChatLinkService {
+@Repository
+public class JdbcChatLinkRepository implements ChatLinkRepository {
     public JdbcTemplate jdbcTemplate;
 
-    public JdbcChatLinkService(JdbcTemplate jdbcTemplate) {
+    public JdbcChatLinkRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -1,21 +1,21 @@
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.test.jdbc.JdbcTestUtils;
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
 import ru.tinkoff.edu.java.scrapper.database.dto.ChatLink;
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
-import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatLinkService;
-import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatService;
-import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcLinkService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
+import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatLinkRepository;
+import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatRepository;
+import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcLinkRepository;
 
 import java.time.Instant;
 
 import static org.junit.Assert.assertTrue;
 
 public class TestChatLink extends IntegrationEnvironment {
-    JdbcChatLinkService chatLinkTable = new JdbcChatLinkService(jdbcTemplate);
-    JdbcLinkService linkTable = new JdbcLinkService(jdbcTemplate);
-    JdbcChatService jdbcChatService = new JdbcChatService(jdbcTemplate);
+    JdbcChatLinkRepository chatLinkTable = new JdbcChatLinkRepository(jdbcTemplate);
+    JdbcLinkRepository linkTable = new JdbcLinkRepository(jdbcTemplate);
+    JdbcChatRepository jdbcChatRepository = new JdbcChatRepository(jdbcTemplate);
 
     @After
     public void tearDown() {
@@ -26,7 +26,7 @@ public class TestChatLink extends IntegrationEnvironment {
     public void addChatLink() {
         Chat chat = new Chat(1L);
         Link link = new Link(1L, "l1", Instant.now());
-        jdbcChatService.register(chat);
+        jdbcChatRepository.register(chat);
         linkTable.add(link);
 
         link = linkTable.listAll().stream().toList().get(0);
@@ -50,8 +50,8 @@ public class TestChatLink extends IntegrationEnvironment {
         var chatLink2 = new ChatLink(2L, chat2, link2);
         linkTable.add(link1);
         linkTable.add(link2);
-        jdbcChatService.register(chat1);
-        jdbcChatService.register(chat2);
+        jdbcChatRepository.register(chat1);
+        jdbcChatRepository.register(chat2);
         chatLinkTable.add(chatLink1);
         chatLinkTable.add(chatLink2);
 
@@ -71,8 +71,8 @@ public class TestChatLink extends IntegrationEnvironment {
 
         linkTable.add(link1);
         linkTable.add(link2);
-        jdbcChatService.register(chat1);
-        jdbcChatService.register(chat2);
+        jdbcChatRepository.register(chat1);
+        jdbcChatRepository.register(chat2);
 
         link1 = linkTable.listAll().stream().toList().get(0);
         link2 = linkTable.listAll().stream().toList().get(1);

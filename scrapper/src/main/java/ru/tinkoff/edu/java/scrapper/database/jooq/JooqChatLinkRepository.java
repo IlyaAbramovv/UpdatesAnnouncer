@@ -2,10 +2,10 @@ package ru.tinkoff.edu.java.scrapper.database.jooq;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
+import ru.tinkoff.edu.java.scrapper.database.ChatLinkRepository;
 import ru.tinkoff.edu.java.scrapper.database.dto.ChatLink;
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
-import ru.tinkoff.edu.java.scrapper.database.service.ChatLinkService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
 import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 
@@ -16,10 +16,10 @@ import static ru.tinkoff.edu.java.scrapper.domain.jooq.Tables.CHAT_LINK;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.Tables.LINK;
 
 @Repository
-public class JooqChatLinkService implements ChatLinkService {
+public class JooqChatLinkRepository implements ChatLinkRepository {
     private final DSLContext dslContext;
 
-    public JooqChatLinkService(DSLContext dslContext) {
+    public JooqChatLinkRepository(DSLContext dslContext) {
         this.dslContext = dslContext;
     }
 

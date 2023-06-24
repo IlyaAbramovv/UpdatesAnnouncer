@@ -1,11 +1,11 @@
-package ru.tinkoff.edu.java.scrapper.database.service;
+package ru.tinkoff.edu.java.scrapper.database;
 
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
 import ru.tinkoff.edu.java.scrapper.database.dto.LinkUpdate;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
 
 import java.util.List;
 
-public interface LinkService {
+public interface LinkRepository {
     Link add(Link link);
 
     Link remove(Link link);

@@ -5,7 +5,7 @@ import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
-import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
+import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
 
 public class Start implements Command {
     final long chatId;

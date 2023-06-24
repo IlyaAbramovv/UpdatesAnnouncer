@@ -1,6 +1,6 @@
-package ru.tinkoff.edu.java.scrapper.database.service;
+package ru.tinkoff.edu.java.scrapper.service;
 
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
 
 import java.util.Collection;
 

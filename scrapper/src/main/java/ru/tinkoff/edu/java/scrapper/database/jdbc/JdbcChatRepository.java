@@ -1,20 +1,21 @@
 package ru.tinkoff.edu.java.scrapper.database.jdbc;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
-import ru.tinkoff.edu.java.scrapper.database.service.TgChatService;
+import ru.tinkoff.edu.java.scrapper.database.ChatRepository;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
 
 import java.sql.Types;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-//@Repository
-public class JdbcChatService implements TgChatService {
+@Repository
+public class JdbcChatRepository implements ChatRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcChatService(JdbcTemplate jdbcTemplate) {
+    public JdbcChatRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

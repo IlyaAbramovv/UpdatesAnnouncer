@@ -2,7 +2,7 @@ package ru.tinkoff.edu.java.bot.service.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
+import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
 
 import java.util.Map;
 import java.util.stream.Collectors;

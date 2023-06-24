@@ -2,9 +2,9 @@ package ru.tinkoff.edu.java.scrapper.database.jooq;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
+import ru.tinkoff.edu.java.scrapper.database.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.database.dto.LinkUpdate;
-import ru.tinkoff.edu.java.scrapper.database.service.LinkService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.Tables.LINK;
 
 @Repository
-public class JooqLinkService implements LinkService {
+public class JooqLinkRepository implements LinkRepository {
     private final DSLContext dslContext;
 
-    public JooqLinkService(DSLContext dslContext) {
+    public JooqLinkRepository(DSLContext dslContext) {
         this.dslContext = dslContext;
     }
 

@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
+import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

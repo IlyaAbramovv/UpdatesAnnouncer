@@ -1,13 +1,13 @@
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.test.jdbc.JdbcTestUtils;
-import ru.tinkoff.edu.java.scrapper.database.dto.Chat;
-import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Chat;
+import ru.tinkoff.edu.java.scrapper.database.jdbc.JdbcChatRepository;
 
 import static org.junit.Assert.assertTrue;
 
 public class TestChat extends IntegrationEnvironment {
-    JdbcChatService jdbcChatService = new JdbcChatService(jdbcTemplate);
+    JdbcChatRepository jdbcChatRepository = new JdbcChatRepository(jdbcTemplate);
 
     @After
     public void tearDown() {
@@ -18,8 +18,8 @@ public class TestChat extends IntegrationEnvironment {
     public void addChat() {
         Chat chat = new Chat(2L);
 
-        jdbcChatService.register(chat);
-        var res = jdbcChatService.findAll();
+        jdbcChatRepository.register(chat);
+        var res = jdbcChatRepository.findAll();
 
         assertTrue(res.stream().anyMatch(c -> c.equals(chat)));
     }
@@ -28,11 +28,11 @@ public class TestChat extends IntegrationEnvironment {
     public void delete() {
         Chat chat1 = new Chat(2L);
         Chat chat2 = new Chat(3L);
-        jdbcChatService.register(chat1);
-        jdbcChatService.register(chat2);
+        jdbcChatRepository.register(chat1);
+        jdbcChatRepository.register(chat2);
 
-        jdbcChatService.unregister(chat1);
-        var res = jdbcChatService.findAll();
+        jdbcChatRepository.unregister(chat1);
+        var res = jdbcChatRepository.findAll();
 
         System.out.println(res);
 
@@ -41,16 +41,16 @@ public class TestChat extends IntegrationEnvironment {
 
     @Test
     public void findAll() {
-        System.out.println(jdbcChatService.findAll());
+        System.out.println(jdbcChatRepository.findAll());
 
         Chat chat1 = new Chat(2L);
         Chat chat2 = new Chat(3L);
         Chat chat3 = new Chat(4L);
-        jdbcChatService.register(chat1);
-        jdbcChatService.register(chat2);
-        jdbcChatService.register(chat3);
+        jdbcChatRepository.register(chat1);
+        jdbcChatRepository.register(chat2);
+        jdbcChatRepository.register(chat3);
 
-        var res = jdbcChatService.findAll();
+        var res = jdbcChatRepository.findAll();
 
         assertTrue(res.contains(chat1) && res.contains(chat2) && res.contains(chat3));
     }

@@ -8,12 +8,11 @@ import ru.tinkoff.edu.java.link_parser.StackOverFlowLinkParser;
 import ru.tinkoff.edu.java.scrapper.clients.BotClient;
 import ru.tinkoff.edu.java.scrapper.clients.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.clients.StackOverFlowClient;
-import ru.tinkoff.edu.java.scrapper.database.dto.Link;
 import ru.tinkoff.edu.java.scrapper.database.dto.LinkUpdate;
-import ru.tinkoff.edu.java.scrapper.database.service.ChatLinkService;
-import ru.tinkoff.edu.java.scrapper.database.service.LinkService;
+import ru.tinkoff.edu.java.scrapper.database.entity.Link;
 import ru.tinkoff.edu.java.scrapper.dto.GitHubResponse;
 import ru.tinkoff.edu.java.scrapper.dto.StackOverFlowResponse;
+import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 import java.net.URI;
 import java.time.Instant;
@@ -23,18 +22,15 @@ import java.util.List;
 public class LinkUpdaterScheduler {
     private final BotClient botClient;
     private final LinkService linkService;
-    private final ChatLinkService chatLinkService;
     private final GitHubClient gitHubClient;
     private final StackOverFlowClient stackOverFlowClient;
 
     public LinkUpdaterScheduler(BotClient botClient,
                                 LinkService linkService,
-                                ChatLinkService chatLinkService,
                                 GitHubClient gitHubClient,
                                 StackOverFlowClient stackOverFlowClient) {
         this.botClient = botClient;
         this.linkService = linkService;
-        this.chatLinkService = chatLinkService;
         this.gitHubClient = gitHubClient;
         this.stackOverFlowClient = stackOverFlowClient;
     }
@@ -61,7 +57,7 @@ public class LinkUpdaterScheduler {
 
     private void handleResponse(Link link, Instant instant) {
         if (instant.isAfter(link.lastUpdate())) {
-            List<Long> ids = chatLinkService.findAll().stream().filter(cl -> cl.link().id() == link.id()).map(cl -> cl.chat().id()).toList();
+            List<Long> ids = linkService.getUpdates(link);
             LinkUpdate linkUpdate = new LinkUpdate(link.id(), URI.create(link.url()), "", ids, instant);
             linkService.update(linkUpdate);
             botClient.update(linkUpdate);

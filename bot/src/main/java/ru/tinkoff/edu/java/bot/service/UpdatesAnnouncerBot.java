@@ -10,8 +10,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
 import ru.tinkoff.edu.java.bot.service.commands.*;
-import ru.tinkoff.edu.java.scrapper.clients.ScrapperClient;
 
 import java.util.List;
 
