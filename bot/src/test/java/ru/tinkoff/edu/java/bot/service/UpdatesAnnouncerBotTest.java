@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UpdatesAnnouncerBotTest {
 
-    private final UpdatesAnnouncerBot bot = new UpdatesAnnouncerBot("6002915986:AAGgvRhnTmFP5HeAI6VPp6wioTbREb37VKs", new ScrapperClient());
+    private final UpdatesAnnouncerBot bot = new UpdatesAnnouncerBot(" ", new ScrapperClient());
 
     @Test
     public void invalidCommandGiven() {
